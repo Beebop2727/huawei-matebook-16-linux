@@ -15,23 +15,21 @@
 ``
   rfkill block bluetooth
 ``
-<p>thnn</p>
+<p align="left">then</p>
 
 ``` 
-
-
 rfkill unblock bluetooth
 
 ``` 
 
-<p align="left">as I am lazy, there must be a way to automate this wehen the device next goes to sleep which led me down writing a script to automate this process. run the following command which will create our script in an area which will run when the device wakes up
+<p align="left">as I am lazy, there must be a way to automate this wehen the device next goes to sleep which led me down writing a script to automate this process. run the following command which will create our script in an area which will run when the device wakes up</p>
 
 ``` 
 sudo nano /usr/lib/systemd/system-sleep/enable-bluetooth.sh
 
 ```
 
-and paste in the folloiwng script:</p>
+<p align="left">and paste in the folloiwng script:</p>
 
 ``` 
 #!/bin/bash
@@ -59,7 +57,6 @@ sudo chmod +x /usr/lib/systemd/system-sleep/enable-bluetooth.sh
 <p align="left">Now reviry that the script works by typing</p>
 
 ```
-
 sudo systemctl suspend
 
 ``` 
