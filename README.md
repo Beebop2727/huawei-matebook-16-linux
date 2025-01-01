@@ -10,10 +10,49 @@
 
 ###
 
-<p align="left">run the command which will list the status of the bluetooth module<br><br>rfkill list<br><br>by disabling and reenabling the bluetooth module, it should come back up again for you to be able to use the module again once the device goes to sleep<br><br>try<br><br>rfkill block bluetooth<br><br>then<br><br>rfkill unblock bluetooth<br><br>as I am lazy, there must be a way to automate this wehen the device next goes to sleep which led me down writing a script to automate this process. run the following command which will create our script in an area which will run when the device wakes up<br><br>sudo nano /usr/lib/systemd/system-sleep/enable-bluetooth.sh<br><br>and paste in the folloiwng script:<br><br>#!/bin/bash<br><br>case "$1" in<br>    post)<br>        # This runs after the system resumes from suspension<br>        echo "Enabling Bluetooth after resume..."<br>        rfkill block bluetooth<br>        sleep 3<br>        rfkill unblock bluetooth<br>        systemctl start bluetooth<br>        ;;<br>esac<br><br>Finally, make the script executable by running<br><br>sudo chmod +x /usr/lib/systemd/system-sleep/enable-bluetooth.sh<br><br>Now test that the script works by typing<br><br>sudo systemctl suspend<br><br>wake the device up and hopefully your bluetooth module should now should wake up when your device wakes up :)</p>
-```
-test
-```
+<p align="left">run the command which will list the status of the bluetooth module<br><br>rfkill list<br><br>by disabling and reenabling the bluetooth module, it should come back up again for you to be able to use the module again once the device goes to sleep</p>
+''
+  rfkill block bluetooth
+  
+''
+then
+''
+rfkill unblock bluetooth
+''
+<p align="left">as I am lazy, there must be a way to automate this wehen the device next goes to sleep which led me down writing a script to automate this process. run the following command which will create our script in an area which will run when the device wakes up
+
+sudo nano /usr/lib/systemd/system-sleep/enable-bluetooth.sh
+
+and paste in the folloiwng script:</p>
+
+'''
+#!/bin/bash
+
+case "$1" in
+    post)
+        # This runs after the system resumes from suspension
+        echo "Enabling Bluetooth after resume..."
+        rfkill block bluetooth
+        sleep 3
+        rfkill unblock bluetooth
+        systemctl start bluetooth
+        ;;
+esac
+
+'''
+
+<p>Finally, make the script executable by running</p>
+
+''
+sudo chmod +x /usr/lib/systemd/system-sleep/enable-bluetooth.sh
+''
+<p>Now reviry that the script works by typing</p>
+
+''
+sudo systemctl suspend
+''
+<p>wake the device up and hopefully your bluetooth module should now should wake up when your device wakes up :)</p>
+
 
 
 ###
